@@ -11,7 +11,7 @@ import hashlib
 # Repository permissions: read:Commit statuses, read:Contents, read:Issues, read:Metadata, read:Pull Requests
 # Issues and pull requests permissions not needed at the moment, but may be used in the future
 HEADERS = {'authorization': 'token '+ os.environ['ACCESS_TOKEN']}
-USER_NAME = os.environ['USER_NAME'] # 'purnasth'
+USER_NAME = os.environ['USER_NAME'] # 'sufal-kc'
 QUERY_COUNT = {'user_getter': 0, 'follower_getter': 0, 'graph_repos_stars': 0, 'recursive_loc': 0, 'graph_commits': 0, 'loc_query': 0, 'graph_streak': 0}
 
 
@@ -467,7 +467,7 @@ def formatter(query_type, difference, funct_return=False, whitespace=0):
 
 if __name__ == '__main__':
     """
-    Purna Shrestha (purnasth)
+    Sufal KC (sufal-kc)
     Based on the profile-stats generator by Andrew Grant (Andrew6rant).
     """
     print('Calculation times:')

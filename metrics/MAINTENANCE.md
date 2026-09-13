@@ -62,7 +62,7 @@ If a pile of "Update GitHub stats" commits has built up and you want them gone,
 squash them into one. Replace `N` with how many recent commits to collapse:
 
 ```bash
-cd ~/Documents/purnasth
+cd ~/Documents/Sufal-kc
 git reset --soft HEAD~N     # keep the files, drop the N commit records
 git commit -m "Update GitHub stats"
 git push --force-with-lease
@@ -83,8 +83,8 @@ git push --force-with-lease
 ## 5. Regenerate the ASCII portrait (if you change your photo)
 
 ```bash
-cd ~/Documents/purnasth/metrics
-python3 generate_portrait.py purna-shrestha.png --invert --contrast 1.6 \
+cd ~/Documents/Sufal-kc/metrics
+python3 generate_portrait.py sufal-kc.png --invert --contrast 1.6 \
         --width 82 --char-aspect 0.565 --line-height 8.5 --start-y 55
 ```
 
