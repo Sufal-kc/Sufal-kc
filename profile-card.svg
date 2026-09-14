@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 470" width="100%">
+  <defs>
+    <style>
+      .bg { fill: #fcfcfc; stroke: #e1e4e8; stroke-width: 1px; }
+      .header-bar { fill: #f6f8fa; }
+      .header-border { stroke: #e1e4e8; stroke-width: 1px; }
+      .title { fill: #6a737d; font-family: 'Fira Code', 'Courier New', monospace; font-size: 13px; font-weight: 500; }
+      .prompt-user { fill: #10b981; font-family: monospace; font-weight: bold; font-size: 13.5px; }
+      .prompt-path { fill: #6b7280; font-family: monospace; font-size: 13.5px; }
+      .cmd { fill: #1f2937; font-family: monospace; font-size: 13.5px; }
+      .name { fill: #111827; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-weight: 700; font-size: 22px; }
+      .title-sub { fill: #3b82f6; font-family: monospace; font-size: 13.5px; font-weight: 500; }
+      .label { fill: #ea580c; font-family: monospace; font-weight: 600; font-size: 13px; }
+      .text-body { fill: #4b5563; font-family: monospace; font-size: 12.5px; }
+      .link { fill: #2563eb; font-weight: 500; }
+      .ascii-art { fill: #4b5563; font-family: monospace; font-size: 5.8px; letter-spacing: -0.5px; }
+
+      @media (prefers-color-scheme: dark) {
+        .bg { fill: #0d1117; stroke: #30363d; }
+        .header-bar { fill: #161b22; }
+        .header-border { stroke: #30363d; }
+        .title { fill: #8b949e; }
+        .prompt-path { fill: #8b949e; }
+        .cmd { fill: #e6edf3; }
+        .name { fill: #f0f6fc; }
+        .title-sub { fill: #58a6ff; }
+        .text-body { fill: #c9d1d9; }
+        .link { fill: #58a6ff; }
+        .ascii-art { fill: #8b949e; }
+      }
+    </style>
+  </defs>
+
+  <rect class="bg" width="880" height="470" rx="10" />
+  <path class="header-bar" d="M 0,10 A 10,10 0 0 1 10,0 L 870,0 A 10,10 0 0 1 880,10 L 880,38 L 0,38 Z" />
+  <line class="header-border" x1="0" y1="38" x2="880" y2="38" />
+
+  <circle cx="20" cy="19" r="6" fill="#ff5f56" />
+  <circle cx="40" cy="19" r="6" fill="#ffbd2e" />
+  <circle cx="60" cy="19" r="6" fill="#27c93f" />
+
+  <text x="440" y="24" text-anchor="middle" class="title">sufal@portfolio: ~/profile</text>
+
+  <!-- Left: ASCII Portrait -->
+  <g transform="translate(15, 45)">
+    <text class="ascii-art" xml:space="preserve">
+      <tspan x="0" dy="1.1em">=-==+=--------++=-=-=-=====+=+***#***+=+=+*+**</tspan>
+      <tspan x="0" dy="1.1em">------------+*+=+++++++******+#*#%*+#%%@@@@@@@</tspan>
+      <tspan x="0" dy="1.1em">-====+++*+**#+***++*##*#%%#*#*%%%#*=#*%#%%%@@@</tspan>
+      <tspan x="0" dy="1.1em">**+********+***###%%%%##%%%%%%%@%%*=*%%*#***=*</tspan>
+      <tspan x="0" dy="1.1em">********#******%%@%%%%@@%@@@@##%@%*=*@@@@@@##%</tspan>
+      <tspan x="0" dy="1.1em">####**#*******+##+++***+*#*###%%#++=***+*%%%@@</tspan>
+      <tspan x="0" dy="1.1em">###*#*#*#******#++++===+*+=-=*%@@@#=*#*+**#%#*</tspan>
+      <tspan x="0" dy="1.1em">#*#*********===++*###=:+*+--=-=##%#=*%%@@@#*++</tspan>
+      <tspan x="0" dy="1.1em">+**+*****+++=-=+*=+==-::..:-=-+++===*#%%*+=+++</tspan>
+      <tspan x="0" dy="1.1em">:-:-***+++===+***++=+#*+---=#%@@@%%=+%%*####%%</tspan>
+      <tspan x="0" dy="1.1em">+=::-=--=+==+**++*##**+===*#+=+*+%%=+%@#%%%@@@</tspan>
+      <tspan x="0" dy="1.1em">*:::==++=-=+=+%+#*%##****##+-+#*#%#++%@%#%#@@%</tspan>
+      <tspan x="0" dy="1.1em">=::=*=++:-*#**#*%%*=#%%%#+=-::%#-=#++%@%###@@@</tspan>
+      <tspan x="0" dy="1.1em">==--:.--=**#**#++**:-+***=-: =%**#*++#%%*#*@@@</tspan>
+      <tspan x="0" dy="1.1em">--+===+**##+******#-..:+++: .*#####********@@@</tspan>
+      <tspan x="0" dy="1.1em">*=+*++********####%=.-#*=**:-#########*****%@@</tspan>
+      <tspan x="0" dy="1.1em">*##=-=++**##%#####%*.:-**= .*##**##########%@@</tspan>
+      <tspan x="0" dy="1.1em">++*%%###%###%%######: :**- :##*####%###%%%%%#*</tspan>
+      <tspan x="0" dy="1.1em">-*@%%%#%%%##%%#####%=.+*+=.+######%%##%%%%%%++</tspan>
+      <tspan x="0" dy="1.1em">%%%%%#%%%@%%%%%#####*:+*+=:*##%###%%#%%@%%%%#*</tspan>
+      <tspan x="0" dy="1.1em">###%@%%%%@%%%%%##%###=++*==##%%####%%%%@@%%%*+</tspan>
+      <tspan x="0" dy="1.1em">%@@@@%%%%@%%%%%###@###++++*#%%%%##%%%%%@%%%%**</tspan>
+      <tspan x="0" dy="1.1em">@@@@@%@%%%@%%%%###%@##+++*#%######%%%%@@@%%%##</tspan>
+      <tspan x="0" dy="1.1em">@@@@@%%%%%@@@%%###%@@*+++#%%#####%%%%%@@@%%%##</tspan>
+      <tspan x="0" dy="1.1em">@@@@#%%#%%@@%%%%##%%@#++*%%####%%%%%%%@@@%%%##</tspan>
+      <tspan x="0" dy="1.1em">***+=#%%%%%%#%%%##%%%****%##%##%%%%##%@@@%@%**</tspan>
+      <tspan x="0" dy="1.1em">%%%#%%%%%%%%%%%%##%%%***#%##%####%%#%%@@@@%%++</tspan>
+      <tspan x="0" dy="1.1em">@@%@@##%@@@%%%%%#%%%#***#%##########%%%@@@@%%%</tspan>
+      <tspan x="0" dy="1.1em">@@@@@%%%%%@%%%%%%%%%****###########%%##@@%%@%%</tspan>
+      <tspan x="0" dy="1.1em">%%##%%%%%%%%%%%%%#%%****#%########%%##%%%%%%#%</tspan>
+      <tspan x="0" dy="1.1em">%+-*%#%%%%%%%%%%%%%#*****%%%#####%%%#%%%%#%%##</tspan>
+      <tspan x="0" dy="1.1em">+*@@%%%##%@%%%%%%%%%*****%%%%%##%%%%%%%%%%%@%#</tspan>
+      <tspan x="0" dy="1.1em">-+#*#%###%%%%%%%%%%#*#***#%%%%%%%%%%%@@%%%%**@</tspan>
+      <tspan x="0" dy="1.1em">######%%#%%%%%%%%%%@##**#@@%%%%%%%%@@%######+%</tspan>
+      <tspan x="0" dy="1.1em">@@@%#%%%#@%%%%%%%%%@@##@@@@@%%%#%@@%#######%*#</tspan>
+    </text>
+  </g>
+
+  <!-- Right: Details -->
+  <g transform="translate(360, 65)">
+    <text y="0" class="text-body">
+      <tspan class="prompt-user">sufal@portfolio</tspan><tspan class="prompt-path">:~/profile$ </tspan><tspan class="cmd">whoami</tspan>
+    </text>
+
+    <text y="32" class="name">Sufal KC</text>
+    <text y="54" class="title-sub">Electronic Engineering Student</text>
+    <text y="78" class="text-body">
+      <tspan class="label">Portfolio: </tspan><tspan class="link">https://kcsufal.com.np/</tspan>
+    </text>
+
+    <text y="112" class="label">About:</text>
+    <text y="132" class="text-body">Electronic engineering student with a strong portfolio</text>
+    <text y="150" class="text-body">in designing, AI, and electronics. Passionate about</text>
+    <text y="168" class="text-body">bridging hardware and intelligent systems — from</text>
+    <text y="186" class="text-body">circuit design to building AI-driven solutions.</text>
+
+    <text y="222" class="label">Stack:</text>
+    <text y="242" class="text-body">C · Python · Embedded Systems · Arduino</text>
+    <text y="260" class="text-body">Raspberry Pi · PCB Design · MATLAB</text>
+    <text y="278" class="text-body">TensorFlow · Figma · AI/ML</text>
+  </g>
+</svg>
