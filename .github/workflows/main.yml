@@ -1,0 +1,35 @@
+name: GitHub Metrics
+
+on:
+  # Runs automatically every day at midnight
+  schedule:
+    - cron: "0 0 * * *"
+  # Allows you to run the workflow manually from the Actions tab
+  workflow_dispatch:
+  # Runs whenever you push to the main branch
+  push:
+    branches: ["main"]
+
+jobs:
+  github-metrics:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Generate Light Mode Card
+        uses: lowlighter/metrics@latest
+        with:
+          filename: metrics/light_mode.svg
+          # Automatically uses the built-in GitHub token
+          token: ${{ secrets.GITHUB_TOKEN }}
+          base: header, activity, community, repositories, metadata
+          config_timezone: Asia/Kathmandu
+
+      - name: Generate Dark Mode Card
+        uses: lowlighter/metrics@latest
+        with:
+          filename: metrics/dark_mode.svg
+          token: ${{ secrets.GITHUB_TOKEN }}
+          base: header, activity, community, repositories, metadata
+          config_timezone: Asia/Kathmandu
+          config_theme: dark
