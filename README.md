@@ -90,11 +90,11 @@
 
 <h3 align="center">Live Activity Card</h3>
 <p align="center">Auto-refreshed daily via GitHub Actions, pulling directly from the GitHub GraphQL API.</p>
-<picture>
+<!-- <picture>
   <source media="(prefers-color-scheme: dark)" srcset="./metrics/dark_mode.svg">
   <source media="(prefers-color-scheme: light)" srcset="./metrics/light_mode.svg">
   <img alt="Sufal KC's GitHub activity card" src="./metrics/dark_mode.svg" width="100%">
-</picture>
+</picture> -->
 
 <div align="center">
   <h3>Connect</h3>
