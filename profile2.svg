@@ -1,0 +1,147 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 490" width="100%">
+  <defs>
+    <style>
+      .bg { fill: #fcfcfc; stroke: #e1e4e8; stroke-width: 1px; }
+      .header-bar { fill: #f6f8fa; }
+      .header-border { stroke: #e1e4e8; stroke-width: 1px; }
+      .title { fill: #6a737d; font-family: 'Fira Code', 'Courier New', monospace; font-size: 13px; font-weight: 500; }
+      .prompt-user { fill: #10b981; font-family: monospace; font-weight: bold; font-size: 14px; }
+      .prompt-path { fill: #6b7280; font-family: monospace; font-size: 14px; }
+      .cmd { fill: #1f2937; font-family: monospace; font-size: 14px; }
+      .name { fill: #111827; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-weight: 700; font-size: 22px; }
+      .title-sub { fill: #2563eb; font-family: monospace; font-size: 14px; font-weight: 500; }
+      .label { fill: #ea580c; font-family: monospace; font-weight: 600; font-size: 13.5px; }
+      .text-body { fill: #4b5563; font-family: monospace; font-size: 13px; }
+      .link { fill: #2563eb; }
+      .ascii-art { fill: #374151; font-family: monospace; font-size: 8px; letter-spacing: 0px; font-weight: 600; text-anchor: middle; }
+      .live-feed { fill: #1f2937; font-family: monospace; font-size: 11px; }
+      .live-box { fill: #f3f4f6; stroke: #d1d5db; stroke-width: 1px; rx: 5px; }
+      .status-pass { fill: #10b981; font-weight: bold; }
+
+      @media (prefers-color-scheme: dark) {
+        .bg { fill: #0d1117; stroke: #30363d; }
+        .header-bar { fill: #161b22; }
+        .header-border { stroke: #30363d; }
+        .title { fill: #8b949e; }
+        .prompt-path { fill: #8b949e; }
+        .cmd { fill: #e6edf3; }
+        .name { fill: #f0f6fc; }
+        .title-sub { fill: #58a6ff; }
+        .text-body { fill: #c9d1d9; }
+        .link { fill: #58a6ff; }
+        .ascii-art { fill: #8b949e; }
+        .live-feed { fill: #c9d1d9; }
+        .live-box { fill: #161b22; stroke: #30363d; }
+      }
+    </style>
+  </defs>
+
+  <!-- Container Window -->
+  <rect class="bg" width="900" height="490" rx="10" />
+
+  <!-- Header Bar -->
+  <path class="header-bar" d="M 0,10 A 10,10 0 0 1 10,0 L 890,0 A 10,10 0 0 1 900,10 L 900,38 L 0,38 Z" />
+  <line class="header-border" x1="0" y1="38" x2="900" y2="38" />
+
+  <!-- macOS Window Controls -->
+  <circle cx="20" cy="19" r="6" fill="#ff5f56" />
+  <circle cx="40" cy="19" r="6" fill="#ffbd2e" />
+  <circle cx="60" cy="19" r="6" fill="#27c93f" />
+
+  <!-- Header Title -->
+  <text x="450" y="24" text-anchor="middle" class="title">sufal@portfolio: ~/profile</text>
+
+  <!-- Left Column: ASCII Portrait & Live Feed -->
+  <g transform="translate(25, 55)">
+    <text class="ascii-art" xml:space="preserve">
+      <tspan x="169" dy="0">=-==+=--------++=-=-=-=====+=+***#***+=+=+*+**</tspan>
+      <tspan x="169" dy="8.5px">------------+*+=+++++++******+#*#%*+#%%@@@@@@@</tspan>
+      <tspan x="169" dy="8.5px">-====+++*+**#+***++*##*#%%#*#*%%%#*=#*%#%%%@@@</tspan>
+      <tspan x="169" dy="8.5px">**+********+***###%%%%##%%%%%%%@%%*=*%%*#***=*</tspan>
+      <tspan x="169" dy="8.5px">********#******%%@%%%%@@%@@@@##%@%*=*@@@@@@##%</tspan>
+      <tspan x="169" dy="8.5px">####**#*******+##+++***+*#*###%%#++=***+*%%%@@</tspan>
+      <tspan x="169" dy="8.5px">###*#*#*#******#++++===+*+=-=*%@@@#=*#*+**#%#*</tspan>
+      <tspan x="169" dy="8.5px">#*#*********===++*###=:+*+--=-=##%#=*%%@@@#*++</tspan>
+      <tspan x="169" dy="8.5px">+**+*****+++=-=+*=+==-::..:-=-+++===*#%%*+=+++</tspan>
+      <tspan x="169" dy="8.5px">:-:-***+++===+***++=+#*+---=#%@@@%%=+%%*####%%</tspan>
+      <tspan x="169" dy="8.5px">+=::-=--=+==+**++*##**+===*#+=+*+%%=+%@#%%%@@@</tspan>
+      <tspan x="169" dy="8.5px">*:::==++=-=+=+%+#*%##****##+-+#*#%#++%@%#%#@@%</tspan>
+      <tspan x="169" dy="8.5px">=::=*=++:-*#**#*%%*=#%%%#+=-::%#-=#++%@%###@@@</tspan>
+      <tspan x="169" dy="8.5px">==--:.--=**#**#++**:-+***=-: =%**#*++#%%*#*@@@</tspan>
+      <tspan x="169" dy="8.5px">--+===+**##+******#-..:+++: .*#####********@@@</tspan>
+      <tspan x="169" dy="8.5px">*=+*++********####%=.-#*=**:-#########*****%@@</tspan>
+      <tspan x="169" dy="8.5px">*##=-=++**##%#####%*.:-**= .*##**##########%@@</tspan>
+      <tspan x="169" dy="8.5px">++*%%###%###%%######: :**- :##*####%###%%%%%#*</tspan>
+      <tspan x="169" dy="8.5px">-*@%%%#%%%##%%#####%=.+*+=.+######%%##%%%%%%++</tspan>
+      <tspan x="169" dy="8.5px">%%%%%#%%%@%%%%%#####*:+*+=:*##%###%%#%%@%%%%#*</tspan>
+      <tspan x="169" dy="8.5px">###%@%%%%@%%%%%##%###=++*==##%%####%%%%@@%%%*+</tspan>
+      <tspan x="169" dy="8.5px">%@@@@%%%%@%%%%%###@###++++*#%%%%##%%%%%@%%%%**</tspan>
+      <tspan x="169" dy="8.5px">@@@@@%@%%%@%%%%###%@##+++*#%######%%%%@@@%%%##</tspan>
+      <tspan x="169" dy="8.5px">@@@@@%%%%%@@@%%###%@@*+++#%%#####%%%%%@@@%%%##</tspan>
+      <tspan x="169" dy="8.5px">@@@@#%%#%%@@%%%%##%%@#++*%%####%%%%%%%@@@%%%##</tspan>
+      <tspan x="169" dy="8.5px">***+=#%%%%%%#%%%##%%%****%##%##%%%%##%@@@%@%**</tspan>
+      <tspan x="169" dy="8.5px">%%%#%%%%%%%%%%%%##%%%***#%##%####%%#%%@@@@%%++</tspan>
+      <tspan x="169" dy="8.5px">@@%@@##%@@@%%%%%#%%%#***#%##########%%%@@@@%%%</tspan>
+      <tspan x="169" dy="8.5px">@@@@@%%%%%@%%%%%%%%%****###########%%##@@%%@%%</tspan>
+      <tspan x="169" dy="8.5px">%%##%%%%%%%%%%%%%#%%****#%########%%##%%%%%%#%</tspan>
+      <tspan x="169" dy="8.5px">%+-*%#%%%%%%%%%%%%%#*****%%%#####%%%#%%%%#%%##</tspan>
+      <tspan x="169" dy="8.5px">+*@@%%%##%@%%%%%%%%%*****%%%%%##%%%%%%%%%%%@%#</tspan>
+      <tspan x="169" dy="8.5px">-+#*#%###%%%%%%%%%%#*#***#%%%%%%%%%%%@@%%%%**@</tspan>
+      <tspan x="169" dy="8.5px">######%%#%%%%%%%%%%@##**#@@%%%%%%%%@@%######+%</tspan>
+      <tspan x="169" dy="8.5px">@@@%#%%%#@%%%%%%%%%@@##@@@@@%%%#%@@%#######%*#</tspan>
+    </text>
+
+    <!-- LIVE FEED Box Directly Below Portrait -->
+    <g transform="translate(0, 318)">
+      <rect class="live-box" x="0" y="0" width="338" height="102" rx="5" />
+      <text class="live-feed" x="12" y="18" font-weight="bold" fill="#ea580c">|=== LIVE FEED =========================|</text>
+      <text class="live-feed" x="12" y="38">| Recent Commits: [<tspan fill="#2563eb">======&gt;------------</tspan>] 68% |</text>
+      <text class="live-feed" x="12" y="56">| Active Projects: [<tspan fill="#2563eb">&gt;&gt;-----------------</tspan>] 12% |</text>
+      <text class="live-feed" x="12" y="74">| Latest Push:    <tspan class="link">feat/circuit-ai-bridge</tspan> |</text>
+      <text class="live-feed" x="12" y="92">| Build Status:   [<tspan class="status-pass">PASS</tspan>] (0.5s ago)     |</text>
+    </g>
+  </g>
+
+  <!-- Right Column: Profile Information -->
+  <g transform="translate(388, 68)">
+    <text y="0" class="text-body">
+      <tspan class="prompt-user">sufal@portfolio</tspan><tspan class="prompt-path">:~/profile$ </tspan><tspan class="cmd">whoami</tspan>
+    </text>
+
+    <text y="32" class="name">Sufal KC</text>
+    <text y="54" class="title-sub">Electronic Engineering Student</text>
+    <text y="78" class="text-body">
+      <tspan class="label">Portfolio: </tspan><tspan class="link">https://kcsufal.com.np/</tspan>
+    </text>
+
+    <text y="112" class="label">About:</text>
+    <text y="132" class="text-body">Electronic engineering student with a strong portfolio</text>
+    <text y="150" class="text-body">in designing, AI, and electronics. Passionate about</text>
+    <text y="168" class="text-body">bridging hardware and intelligent systems — from</text>
+    <text y="186" class="text-body">circuit design to building AI-driven solutions.</text>
+
+    <text y="222" class="text-body">
+      <tspan class="label">Stack : </tspan><tspan>C · Python · Embedded Systems · Arduino</tspan>
+    </text>
+    <text y="240" class="text-body">
+      <tspan fill="none">        </tspan><tspan>Raspberry Pi · PCB Design · MATLAB</tspan>
+    </text>
+    <text y="258" class="text-body">
+      <tspan fill="none">        </tspan><tspan>TensorFlow · Figma · AI/ML</tspan>
+    </text>
+
+    <text y="296" class="label">GitHub Stats:</text>
+    <text y="316" class="text-body">
+      . Repos: .... 24 {<tspan fill="#d97706">Contributed: 31</tspan>} | Stars: ........... 18
+    </text>
+    <text y="334" class="text-body">
+      . Commits: .................. 1,240 | Followers: ....... 28
+    </text>
+    <text y="352" class="text-body">
+      . Lines of Code:. 245,134 ( <tspan fill="#10b981">412,932++</tspan>, <tspan fill="#ef4444">167,798--</tspan> )
+    </text>
+    <text y="370" class="text-body">
+      . Streak: ..... 5 days current | Longest: .... 42 days
+    </text>
+  </g>
+</svg>
