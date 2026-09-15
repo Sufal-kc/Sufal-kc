@@ -1,10 +1,10 @@
 <p align="center">
-  <img src="./profile2.svg" alt="Sufal KC Profile Terminal" width="100%" />
+  <img src="./profile3.svg" alt="Sufal KC Profile Terminal" width="100%" />
 </p>
 
 <p align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=sufal-kc&show_icons=true&theme=default&hide_border=true" width="49%" />
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=sufal-kc&layout=compact&hide_border=true" width="49%" />
+  <img src="https://github-readme-stats.vercel.app/api?username=kcsufal&show_icons=true&theme=tokyonight" width="48%" />
+  <img src="https://github-readme-streak-stats.herokuapp.com/?user=kcsufal&theme=tokyonight" width="48%" />
 </p>
 
 <div align="center">
