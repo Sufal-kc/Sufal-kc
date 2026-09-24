@@ -7,6 +7,14 @@
   <img src="https://github-readme-streak-stats.herokuapp.com/?user=kcsufal&theme=tokyonight" width="48%" />
 </p>
 
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="./metrics/dark_mode.svg" />
+    <source media="(prefers-color-scheme: light)" srcset="./metrics/light_mode.svg" />
+    <img alt="Contribution Snake" src="./metrics/light_mode.svg" width="100%" />
+  </picture>
+</p>
+
 <div align="center">
   <h3>Connect</h3>
   <a href="https://kcsufal.com.np/"><img src="https://img.shields.io/badge/Portfolio-kcsufal.com.np-blue?style=for-the-badge" /></a>
