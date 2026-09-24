@@ -1,0 +1,45 @@
+name: Update Profile Card & Snake Metrics
+
+on:
+  schedule:
+    - cron: "0 */12 * * *"
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  update-profile:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Install Dependencies
+        run: pip install requests
+
+      - name: Update Terminal Card SVG
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python scripts/update_card.py
+
+      - name: Generate Contribution Snake SVGs
+        uses: Platane/snk/svg-only@v3
+        with:
+          github_user_name: ${{ github.repository_owner }}
+          outputs: |
+            metrics/light_mode.svg?palette=github-light
+            metrics/dark_mode.svg?palette=github-dark
+
+      - name: Commit and Push Changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: update profile card stats and snake SVGs [skip ci]"
+          file_pattern: "profile-card.svg metrics/*.svg"
