@@ -4,6 +4,7 @@ Every profile*.svg in the repository root is scanned; a value is written into
 each <tspan id="..."> placeholder that exists. Values that could not be fetched
 are left as they were, so an API hiccup never blanks the card.
 """
+import datetime
 import glob
 import html
 import os
@@ -59,6 +60,26 @@ def fetch_values():
     if complete:
         values["stat-stars"] = str(stars)
 
+    # Contributions in the last year (GraphQL needs a token)
+    if TOKEN:
+        query = (
+            "query($login:String!){user(login:$login){contributionsCollection"
+            "{contributionCalendar{totalContributions}}}}"
+        )
+        try:
+            res = session.post(
+                f"{API}/graphql",
+                json={"query": query, "variables": {"login": USERNAME}},
+                timeout=15,
+            )
+            res.raise_for_status()
+            total = res.json()["data"]["user"]["contributionsCollection"][
+                "contributionCalendar"
+            ]["totalContributions"]
+            values["stat-contribs"] = str(total)
+        except (requests.RequestException, ValueError, KeyError, TypeError) as err:
+            print(f"warning: contributions query failed: {err}", file=sys.stderr)
+
     # Latest public push
     events = get(f"/users/{USERNAME}/events/public", per_page=100)
     if isinstance(events, list):
@@ -81,6 +102,10 @@ def fetch_values():
                 if len(first_line) > MAX_MSG_LEN:
                     first_line = first_line[: MAX_MSG_LEN - 1].rstrip() + "…"
                 values["feed-msg"] = first_line
+
+    if values:
+        now = datetime.datetime.now(datetime.timezone.utc)
+        values["feed-updated"] = now.strftime("%d %b %Y %H:%M UTC")
 
     return values
 

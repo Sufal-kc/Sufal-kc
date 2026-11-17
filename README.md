@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./profile-card.svg" alt="Sufal KC profile terminal card" width="100%" />
+  <img src="./profile3.svg" alt="Sufal KC profile terminal card" width="100%" />
 </p>
 
 <p align="center">

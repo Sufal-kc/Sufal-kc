@@ -27,5 +27,7 @@ jobs:
         with:
           filename: metrics/github-metrics.svg
           token: ${{ secrets.GITHUB_TOKEN }}
-          base: header, activity, community, repositories, metadata
+          # "repositories" is left out: the built-in token only sees this repo,
+          # so that section would report "1 Repository". Add it back with a PAT.
+          base: header, activity, community, metadata
           config_timezone: Asia/Kathmandu
