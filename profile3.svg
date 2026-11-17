@@ -138,5 +138,8 @@
     <text y="334" class="text-body">
       . Followers: .... <tspan id="stat-followers">1</tspan> | Stars: ............ <tspan id="stat-stars">0</tspan>
     </text>
+    <text y="352" class="text-body">
+      . Streak: ....... <tspan id="stat-streak" class="status-pass">55 days</tspan>
+    </text>
   </g>
 </svg>

@@ -3,11 +3,6 @@
 </p>
 
 <p align="center">
-  <img src="./metrics/github-metrics.svg" alt="GitHub metrics for Sufal-kc" width="48%" />
-  <img src="https://streak-stats.demolab.com/?user=Sufal-kc&theme=tokyonight" alt="GitHub contribution streak for Sufal-kc" width="48%" />
-</p>
-
-<p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="./metrics/snake-dark.svg" />
     <source media="(prefers-color-scheme: light)" srcset="./metrics/snake-light.svg" />

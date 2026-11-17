@@ -37,6 +37,66 @@ def get(path, **params):
         return None
 
 
+CALENDAR_QUERY = (
+    "query($login:String!,$from:DateTime,$to:DateTime){user(login:$login){"
+    "contributionsCollection(from:$from,to:$to){contributionCalendar{"
+    "totalContributions weeks{contributionDays{date contributionCount}}}}}}"
+)
+MAX_STREAK_YEARS = 15
+
+
+def fetch_calendar(start=None, end=None):
+    """Return (total, [(date, count), ...] oldest first) for a window of up to
+    a year (the last year by default), or None on any failure."""
+    variables = {"login": USERNAME}
+    if start and end:
+        variables["from"] = f"{start.isoformat()}T00:00:00Z"
+        variables["to"] = f"{end.isoformat()}T23:59:59Z"
+    try:
+        res = session.post(
+            f"{API}/graphql",
+            json={"query": CALENDAR_QUERY, "variables": variables},
+            timeout=15,
+        )
+        res.raise_for_status()
+        calendar = res.json()["data"]["user"]["contributionsCollection"][
+            "contributionCalendar"
+        ]
+        days = [
+            (datetime.date.fromisoformat(day["date"]), day["contributionCount"])
+            for week in calendar["weeks"]
+            for day in week["contributionDays"]
+        ]
+        return calendar["totalContributions"], sorted(days)
+    except (requests.RequestException, ValueError, KeyError, TypeError) as err:
+        print(f"warning: contributions query failed: {err}", file=sys.stderr)
+        return None
+
+
+def current_streak(days):
+    """Count consecutive contribution days ending today (or yesterday, if there
+    is nothing yet today). Returns None if an older window could not be fetched."""
+    days = list(days)
+    # A day that is still in progress does not break the streak
+    if days and days[-1][1] == 0:
+        days.pop()
+    streak = 0
+    for _ in range(MAX_STREAK_YEARS):
+        if not days:
+            return streak
+        for _, count in reversed(days):
+            if count == 0:
+                return streak
+            streak += 1
+        # The streak fills the whole window, so keep counting in the year before
+        end = days[0][0] - datetime.timedelta(days=1)
+        earlier = fetch_calendar(end - datetime.timedelta(days=364), end)
+        if earlier is None:
+            return None
+        days = earlier[1]
+    return streak
+
+
 def fetch_values():
     """Return {tspan id: text} for everything that could be fetched."""
     values = {}
@@ -60,25 +120,15 @@ def fetch_values():
     if complete:
         values["stat-stars"] = str(stars)
 
-    # Contributions in the last year (GraphQL needs a token)
+    # Contributions in the last year and the current streak (GraphQL needs a token)
     if TOKEN:
-        query = (
-            "query($login:String!){user(login:$login){contributionsCollection"
-            "{contributionCalendar{totalContributions}}}}"
-        )
-        try:
-            res = session.post(
-                f"{API}/graphql",
-                json={"query": query, "variables": {"login": USERNAME}},
-                timeout=15,
-            )
-            res.raise_for_status()
-            total = res.json()["data"]["user"]["contributionsCollection"][
-                "contributionCalendar"
-            ]["totalContributions"]
+        calendar = fetch_calendar()
+        if calendar:
+            total, days = calendar
             values["stat-contribs"] = str(total)
-        except (requests.RequestException, ValueError, KeyError, TypeError) as err:
-            print(f"warning: contributions query failed: {err}", file=sys.stderr)
+            streak = current_streak(days)
+            if streak is not None:
+                values["stat-streak"] = f"{streak} day{'' if streak == 1 else 's'}"
 
     # Latest public push
     events = get(f"/users/{USERNAME}/events/public", per_page=100)
