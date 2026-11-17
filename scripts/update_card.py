@@ -1,55 +1,130 @@
+"""Refresh the live values (stats and latest push) in the profile card SVGs.
+
+Every profile*.svg in the repository root is scanned; a value is written into
+each <tspan id="..."> placeholder that exists. Values that could not be fetched
+are left as they were, so an API hiccup never blanks the card.
+"""
+import glob
+import html
 import os
 import re
+import sys
+
 import requests
 
-USERNAME = "Sufal-kc"
+USERNAME = os.getenv("GITHUB_REPOSITORY_OWNER") or "Sufal-kc"
 TOKEN = os.getenv("GH_TOKEN")
-headers = {"Authorization": f"token {TOKEN}"} if TOKEN else {}
+API = "https://api.github.com"
+MAX_MSG_LEN = 22
 
-# Path to profile-card.svg in repository root
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SVG_PATH = os.path.join(BASE_DIR, "profile-card.svg")
 
-# 1. Fetch User Stats
-user_res = requests.get(f"https://api.github.com/users/{USERNAME}", headers=headers).json()
-public_repos = str(user_res.get("public_repos", "--"))
-followers = str(user_res.get("followers", "--"))
+session = requests.Session()
+session.headers["Accept"] = "application/vnd.github+json"
+if TOKEN:
+    session.headers["Authorization"] = f"Bearer {TOKEN}"
 
-# 2. Fetch Stars Across Public Repos
-repos_res = requests.get(f"https://api.github.com/users/{USERNAME}/repos?per_page=100", headers=headers).json()
-stars_count = sum(repo.get("stargazers_count", 0) for repo in repos_res if isinstance(repo, dict))
 
-# 3. Fetch Latest Public Push Event
-events_res = requests.get(f"https://api.github.com/users/{USERNAME}/events/public", headers=headers).json()
-latest_repo = "N/A"
-latest_msg = "No recent commits"
-event_type = "PushEvent"
+def get(path, **params):
+    """GET a GitHub API path; return the parsed JSON, or None on any failure."""
+    try:
+        res = session.get(f"{API}{path}", params=params, timeout=15)
+        res.raise_for_status()
+        return res.json()
+    except (requests.RequestException, ValueError) as err:
+        print(f"warning: GET {path} failed: {err}", file=sys.stderr)
+        return None
 
-if isinstance(events_res, list):
-    for event in events_res:
-        if event.get("type") == "PushEvent":
-            latest_repo = event.get("repo", {}).get("name", "Sufal-kc/repo")
-            commits = event.get("payload", {}).get("commits", [])
-            if commits:
-                latest_msg = commits[-1].get("message", "").split("\n")[0][:22]
+
+def fetch_values():
+    """Return {tspan id: text} for everything that could be fetched."""
+    values = {}
+
+    user = get(f"/users/{USERNAME}")
+    if isinstance(user, dict):
+        values["stat-repos"] = str(user.get("public_repos", 0))
+        values["stat-followers"] = str(user.get("followers", 0))
+
+    # Stars across all public repos (paginated)
+    stars, page, complete = 0, 1, True
+    while True:
+        repos = get(f"/users/{USERNAME}/repos", per_page=100, page=page, type="owner")
+        if not isinstance(repos, list):
+            complete = False
             break
+        stars += sum(repo.get("stargazers_count", 0) for repo in repos)
+        if len(repos) < 100:
+            break
+        page += 1
+    if complete:
+        values["stat-stars"] = str(stars)
+
+    # Latest public push
+    events = get(f"/users/{USERNAME}/events/public", per_page=100)
+    if isinstance(events, list):
+        push = next((e for e in events if e.get("type") == "PushEvent"), None)
+        if push:
+            repo = push.get("repo", {}).get("name", "")
+            payload = push.get("payload", {})
+            values["feed-event"] = "PushEvent"
+            if repo:
+                values["feed-repo"] = repo
+            # Push events no longer carry the commit list, so look the head commit up
+            commits = payload.get("commits") or []
+            message = commits[-1].get("message", "") if commits else ""
+            if not message and repo and payload.get("head"):
+                commit = get(f"/repos/{repo}/commits/{payload['head']}")
+                if isinstance(commit, dict):
+                    message = commit.get("commit", {}).get("message", "")
+            first_line = message.strip().split("\n")[0]
+            if first_line:
+                if len(first_line) > MAX_MSG_LEN:
+                    first_line = first_line[: MAX_MSG_LEN - 1].rstrip() + "…"
+                values["feed-msg"] = first_line
+
+    return values
+
 
 def replace_tspan(content, elem_id, new_val):
-    pattern = rf'(<tspan[^>]*id="{elem_id}"[^>]*>)(.*?)(</tspan>)'
-    return re.sub(pattern, rf'\g<1>{new_val}\g<3>', content)
+    """Set the text of <tspan id=elem_id>; return (content, replaced?)."""
+    pattern = rf'(<tspan[^>]*\bid="{re.escape(elem_id)}"[^>]*>)(.*?)(</tspan>)'
+    escaped = html.escape(new_val, quote=False)
+    # A function replacement keeps backslashes in the value literal
+    new_content, count = re.subn(
+        pattern, lambda m: m.group(1) + escaped + m.group(3), content, flags=re.S
+    )
+    return new_content, count > 0
 
-# Read and update SVG
-with open(SVG_PATH, "r", encoding="utf-8") as f:
-    svg = f.read()
 
-svg = replace_tspan(svg, "feed-repo", latest_repo)
-svg = replace_tspan(svg, "feed-msg", latest_msg)
-svg = replace_tspan(svg, "feed-event", event_type)
-svg = replace_tspan(svg, "stat-repos", public_repos)
-svg = replace_tspan(svg, "stat-stars", str(stars_count))
-svg = replace_tspan(svg, "stat-followers", followers)
+def main():
+    values = fetch_values()
+    if not values:
+        print("error: no data could be fetched from the GitHub API", file=sys.stderr)
+        return 1
 
-with open(SVG_PATH, "w", encoding="utf-8") as f:
-    f.write(svg)
+    updated = 0
+    for path in sorted(glob.glob(os.path.join(BASE_DIR, "profile*.svg"))):
+        with open(path, encoding="utf-8") as f:
+            original = f.read()
+        svg, hits = original, []
+        for elem_id, value in values.items():
+            svg, replaced = replace_tspan(svg, elem_id, value)
+            if replaced:
+                hits.append(elem_id)
+        name = os.path.basename(path)
+        if not hits:
+            print(f"{name}: no live placeholders, skipped")
+            continue
+        updated += 1
+        if svg != original:
+            with open(path, "w", encoding="utf-8") as f:
+                f.write(svg)
+        print(f"{name}: set {', '.join(hits)}")
 
-print(f"Successfully updated profile-card.svg for user {USERNAME}!")
+    if not updated:
+        print("warning: no profile*.svg contains live placeholders", file=sys.stderr)
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

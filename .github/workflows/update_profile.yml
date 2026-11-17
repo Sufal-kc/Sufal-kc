@@ -1,12 +1,22 @@
-name: Update Profile Card & Snake Metrics
+name: Update Profile Card & Snake
 
 on:
   schedule:
-    - cron: "0 */12 * * *"
+    - cron: "30 */12 * * *"
   workflow_dispatch:
   push:
     branches:
       - main
+    paths:
+      - ".github/workflows/update_profile.yml"
+      - "scripts/**"
+      - "profile*.svg"
+      - "README.md"
+
+# Shared with main.yml so the two workflows never push at the same time
+concurrency:
+  group: profile-assets
+  cancel-in-progress: false
 
 jobs:
   update-profile:
@@ -35,11 +45,11 @@ jobs:
         with:
           github_user_name: ${{ github.repository_owner }}
           outputs: |
-            metrics/light_mode.svg?palette=github-light
-            metrics/dark_mode.svg?palette=github-dark
+            metrics/snake-light.svg?palette=github-light
+            metrics/snake-dark.svg?palette=github-dark
 
       - name: Commit and Push Changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "chore: update profile card stats and snake SVGs [skip ci]"
-          file_pattern: "profile-card.svg metrics/*.svg"
+          file_pattern: "profile*.svg metrics/snake-*.svg"
