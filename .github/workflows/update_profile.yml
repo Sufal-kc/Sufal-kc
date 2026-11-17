@@ -48,6 +48,10 @@ jobs:
             metrics/snake-light.svg?palette=github-light
             metrics/snake-dark.svg?palette=github-dark
 
+      # The metrics workflow may have pushed since checkout; pick that up first
+      - name: Sync With Remote
+        run: git pull --rebase --autostash origin "${{ github.ref_name }}"
+
       - name: Commit and Push Changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
